@@ -6,6 +6,11 @@ import Link from "next/link";
 import { Menu, Fan, Search } from "lucide-react";
 import Profile from "@/components/Profile";
 
+interface NavigationLink {
+  label: string;
+  route: string;
+}
+
 const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -20,7 +25,7 @@ const Header = () => {
     setIsAdditionalMenuOpen(!isAdditionalMenuOpen);
 
   // Select item and close menu
-  const handleSelectItem = (itemName, route) => {
+  const handleSelectItem = (itemName: string, route: string) => {
     router.push(route);
     setIsOpen(false);
     setIsAdditionalMenuOpen(false);
@@ -28,10 +33,10 @@ const Header = () => {
 
   // Close menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (isOpen || isAdditionalMenuOpen) {
         const dropdown = document.querySelector(".dropdown-menu");
-        if (dropdown && !dropdown.contains(event.target)) {
+        if (dropdown && !dropdown.contains(event.target as Node)) {
           setIsOpen(false);
           setIsAdditionalMenuOpen(false);
         }
@@ -45,7 +50,7 @@ const Header = () => {
   }, [isOpen, isAdditionalMenuOpen]);
 
   // Navigation links
-  const navigationLinks = [
+  const navigationLinks: NavigationLink[] = [
     { label: "Home", route: "/" },
     { label: "Roadmaps", route: "/roadmap" },
     { label: "Jobs", route: "/jobs" },
@@ -115,7 +120,7 @@ const Header = () => {
               <UserButton afterSignOutUrl="/sign-in" />
             </SignedIn>
           </div> */}
-          <Profile/>
+          <Profile />
         </div>
       </div>
     </nav>
