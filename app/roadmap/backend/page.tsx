@@ -1,15 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { Roadmap } from "@/components/tools/Roadmap";
-import Dropdown from "@/components/tools/Dropdown";
+import DropdownButton from "@/components/tools/Dropdown";
 import { CheckCircle, Circle } from "lucide-react"; // Assuming these icons are available
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 
-// Define subtasks data
 const subtasksData = {
   NodeJS: [
     { id: 1, title: "NodeJS Basics", completed: false },
@@ -32,7 +26,6 @@ const subtasksData = {
     { id: 4, title: "Mutations and Subscriptions", completed: false },
     { id: 5, title: "Advanced GraphQL Concepts", completed: false },
   ],
-  // Define subtasks for other backend technologies similarly...
 };
 
 export default function Roadmaps() {
@@ -58,20 +51,17 @@ export default function Roadmaps() {
       subtasks: subtasksData.GraphQL,
       progress: 0,
     },
-    // Define other backend lessons similarly...
   ]);
 
-  const isCurrent = true;
-  const isLocked = false;
-  const initialProgress = 0;
-  const [progress, setProgress] = useState(initialProgress);
-  const [hoveredLesson, setHoveredLesson] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [hoveredLesson, setHoveredLesson] = useState<number | null>(null); // Specify the type as number or null
 
-  const handleLessonHover = (lessonId) => {
+  const handleLessonHover = (lessonId: number | null) => {
+    // Specify the type as number or null
     setHoveredLesson(lessonId);
   };
 
-  const handleSubtaskClick = (lessonIndex, subtaskIndex) => {
+  const handleSubtaskClick = (lessonIndex: number, subtaskIndex: number) => {
     const updatedLessons = [...lessons];
     updatedLessons[lessonIndex].subtasks[subtaskIndex].completed =
       !updatedLessons[lessonIndex].subtasks[subtaskIndex].completed;
@@ -115,8 +105,8 @@ export default function Roadmaps() {
                   title={lesson.title}
                   index={index}
                   totalCount={lessons.length - 1}
-                  current={isCurrent}
-                  locked={isLocked}
+                  current={true}
+                  locked={false}
                   percentage={lesson.progress}
                 />
                 {hoveredLesson === lesson.id && (
@@ -145,16 +135,13 @@ export default function Roadmaps() {
                           >
                             {subtask.title}
                           </span>
-                          {/* Dropdown for resources */}
-
-                          <Dropdown className="ml-auto">
-                            {/* List of resources */}
+                          {/* <DropdownButton className="ml-auto">
                             <ul className="bg-white shadow-md rounded-md mt-1 py-1 px-2">
                               <li>Resource 1</li>
                               <li>Resource 2</li>
                               <li>Resource 3</li>
                             </ul>
-                          </Dropdown>
+                          </DropdownButton> */}
                         </li>
                       ))}
                     </ul>
