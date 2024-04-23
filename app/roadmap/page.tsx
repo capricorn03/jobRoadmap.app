@@ -20,7 +20,7 @@ const page = () => {
         </Link>
         <Link
           className="bg-gray-200 hover:bg-slate-200  p-2 rounded-lg hover:font-bold"
-          href="/frontend"
+          href="/roadmap/ai"
         >
           Ai
         </Link>
