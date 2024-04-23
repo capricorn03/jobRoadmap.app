@@ -61,8 +61,8 @@ const Header = () => {
   return (
     <nav className="topbar">
       <div className="w-full border-b">
-        <div className="wrapper flex items-center justify-between">
-          {/* Haamburger  */}
+        <div className="wrapper flex items-center justify-between ">
+          {/* Hamburger  */}
           <div className="mt-1 md:hidden">
             <Menu onClick={handleAdditionalMenuToggle} />
             {isAdditionalMenuOpen && (
@@ -114,13 +114,10 @@ const Header = () => {
               </Link>
             ))}
           </div>
-          {/* User buttons */}
-          {/* <div className="relative flex gap-3">
-            <SignedIn>
-              <UserButton afterSignOutUrl="/sign-in" />
-            </SignedIn>
-          </div> */}
-          <Profile />
+          {/* SignOut buttons */}
+          <button className="border p-1 rounded-lg hover:bg-slate-100 ">
+            <Profile />
+          </button>
         </div>
       </div>
     </nav>
