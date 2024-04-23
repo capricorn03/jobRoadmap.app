@@ -27,7 +27,7 @@ const Page: React.FC = async () => {
 
     return (
       <React.Fragment>
-        <div>Home page
+        <div>Trending jobs
 
           <div>
             hi
