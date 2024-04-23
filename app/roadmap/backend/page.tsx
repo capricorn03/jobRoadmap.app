@@ -1,10 +1,24 @@
 "use client";
 import React, { useState } from "react";
 import { Roadmap } from "@/components/tools/Roadmap";
-import DropdownButton from "@/components/tools/Dropdown";
-import { CheckCircle, Circle } from "lucide-react"; // Assuming these icons are available
+import { CheckCircle, Circle } from "lucide-react";
 
-const subtasksData = {
+interface Subtask {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+interface Lesson {
+  id: number;
+  order: number;
+  title: string;
+  subtasks: Subtask[];
+  progress: number;
+  showSubtasks: boolean;
+}
+
+const subtasksData: Record<string, Subtask[]> = {
   NodeJS: [
     { id: 1, title: "NodeJS Basics", completed: false },
     { id: 2, title: "RESTful APIs", completed: false },
@@ -28,14 +42,15 @@ const subtasksData = {
   ],
 };
 
-export default function Roadmaps() {
-  const [lessons, setLessons] = useState([
+export default function Roadmaps(): JSX.Element {
+  const [lessons, setLessons] = useState<Lesson[]>([
     {
       id: 1,
       order: 1,
       title: "NodeJS",
       subtasks: subtasksData.NodeJS,
       progress: 0,
+      showSubtasks: false,
     },
     {
       id: 2,
@@ -43,6 +58,7 @@ export default function Roadmaps() {
       title: "MongoDB",
       subtasks: subtasksData.MongoDB,
       progress: 0,
+      showSubtasks: false,
     },
     {
       id: 3,
@@ -50,33 +66,35 @@ export default function Roadmaps() {
       title: "GraphQL",
       subtasks: subtasksData.GraphQL,
       progress: 0,
+      showSubtasks: false,
     },
   ]);
 
-  const [progress, setProgress] = useState(0);
-  const [hoveredLesson, setHoveredLesson] = useState<number | null>(null); // Specify the type as number or null
+  const [progress, setProgress] = useState<number>(0);
 
-  const handleLessonHover = (lessonId: number | null) => {
-    // Specify the type as number or null
-    setHoveredLesson(lessonId);
+  const handleLessonClick = (lessonIndex: number): void => {
+    const updatedLessons = [...lessons];
+    updatedLessons[lessonIndex].showSubtasks =
+      !updatedLessons[lessonIndex].showSubtasks;
+    setLessons(updatedLessons);
   };
 
-  const handleSubtaskClick = (lessonIndex: number, subtaskIndex: number) => {
+  const handleSubtaskClick = (
+    lessonIndex: number,
+    subtaskIndex: number
+  ): void => {
     const updatedLessons = [...lessons];
     updatedLessons[lessonIndex].subtasks[subtaskIndex].completed =
       !updatedLessons[lessonIndex].subtasks[subtaskIndex].completed;
 
-    // Calculate progress for the current lesson
     const completedSubtasks = updatedLessons[lessonIndex].subtasks.filter(
       (subtask) => subtask.completed
     ).length;
     const totalSubtasks = updatedLessons[lessonIndex].subtasks.length;
     const lessonProgress = (completedSubtasks / totalSubtasks) * 100;
 
-    // Update the progress for the current lesson
     updatedLessons[lessonIndex].progress = lessonProgress;
 
-    // Calculate total progress for all lessons
     const totalCompletedSubtasks = updatedLessons
       .flatMap((lesson) => lesson.subtasks)
       .filter((subtask) => subtask.completed).length;
@@ -95,21 +113,19 @@ export default function Roadmaps() {
         <div>
           <div className="flex items-center flex-col relative">
             {lessons.map((lesson, index) => (
-              <div
-                key={lesson.id}
-                onMouseEnter={() => handleLessonHover(lesson.id)}
-                onMouseLeave={() => handleLessonHover(null)}
-              >
-                <Roadmap
-                  id={lesson.id}
-                  title={lesson.title}
-                  index={index}
-                  totalCount={lessons.length - 1}
-                  current={true}
-                  locked={false}
-                  percentage={lesson.progress}
-                />
-                {hoveredLesson === lesson.id && (
+              <div key={lesson.id}>
+                <div onClick={() => handleLessonClick(index)}>
+                  <Roadmap
+                    id={lesson.id}
+                    title={lesson.title}
+                    index={index}
+                    totalCount={lessons.length - 1}
+                    current={true}
+                    locked={false}
+                    percentage={lesson.progress}
+                  />
+                </div>
+                {lesson.showSubtasks && (
                   <div className="subtasks-container">
                     <ul>
                       {lesson.subtasks.map((subtask, subIndex) => (
@@ -135,13 +151,6 @@ export default function Roadmaps() {
                           >
                             {subtask.title}
                           </span>
-                          {/* <DropdownButton className="ml-auto">
-                            <ul className="bg-white shadow-md rounded-md mt-1 py-1 px-2">
-                              <li>Resource 1</li>
-                              <li>Resource 2</li>
-                              <li>Resource 3</li>
-                            </ul>
-                          </DropdownButton> */}
                         </li>
                       ))}
                     </ul>

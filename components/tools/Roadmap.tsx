@@ -1,6 +1,4 @@
 "use client";
-
-import Link from "next/link";
 import { Check, Award, Rocket } from "lucide-react";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 
@@ -51,14 +49,8 @@ export const Roadmap = ({
 
   const Icon = isCompleted ? Check : isLast ? Award : Rocket;
 
-  const href = isCompleted ? `/lesson/${id}` : "/lesson";
 
   return (
-    <Link
-      href={href}
-      aria-disabled={locked}
-      style={{ pointerEvents: locked ? "none" : "auto" }}
-    >
       <div
         className="relative"
         style={{
@@ -118,6 +110,5 @@ export const Roadmap = ({
           </Button>
         )}
       </div>
-    </Link>
   );
 };

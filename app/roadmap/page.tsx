@@ -34,25 +34,25 @@ const page = () => {
           className="bg-gray-200 hover:bg-slate-200  p-2 rounded-lg hover:font-bold"
           href="/frontend"
         >
-          Frontend
+          MLOps
         </Link>
         <Link
           className="bg-gray-200 hover:bg-slate-200  p-2 rounded-lg hover:font-bold"
           href="/frontend"
         >
-          Backend
+          Blockchain
         </Link>
         <Link
           className="bg-gray-200 hover:bg-slate-200  p-2 rounded-lg hover:font-bold"
           href="/frontend"
         >
-          Ai
+          Mobile Devlopment
         </Link>
         <Link
           className="bg-gray-200 hover:bg-slate-200  p-2 rounded-lg hover:font-bold"
           href="/frontend"
         >
-          DevOps
+          Data Scientist
         </Link>
       </div>
     </>
