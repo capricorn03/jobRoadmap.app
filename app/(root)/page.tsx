@@ -60,7 +60,7 @@ const Page: React.FC = async () => {
                     className="bg-gray-200 hover:bg-slate-200  p-2 rounded-lg hover:font-bold"
                     href="/frontend"
                   >
-                    Ai
+                    AI
                   </Link>
                   <Link
                     className="bg-gray-200 hover:bg-slate-200  p-2 rounded-lg hover:font-bold"
@@ -84,7 +84,7 @@ const Page: React.FC = async () => {
                     className="bg-gray-200 hover:bg-slate-200  p-2 rounded-lg hover:font-bold"
                     href="/frontend"
                   >
-                    Mobile Devlopment
+                    Mobile Development
                   </Link>
                   <Link
                     className="bg-gray-200 hover:bg-slate-200  p-2 rounded-lg hover:font-bold"
